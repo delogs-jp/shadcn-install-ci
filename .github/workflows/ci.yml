@@ -6,6 +6,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+
       # Node.js + npm 環境をセットアップ
       - uses: actions/setup-node@v4
         with:
