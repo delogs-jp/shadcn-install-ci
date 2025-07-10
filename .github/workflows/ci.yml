@@ -1,12 +1,24 @@
-name: CI (echo only)
+name: CI
 
-on:
-  push: []
-  pull_request: []
+on: [push, pull_request]
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - run: echo "✅ build success"
+      # Node.js + npm 環境をセットアップ
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.17.0         # Node.js バージョンを指定
+
+      # 依存をクリーンインストール
+      - run: npm ci
+        # package-lock.json と完全一致する形で node_modules を再生成します。
+
+      # TypeScript 型チェック
+      - run: npm run tsc -- --noEmit
+        # 型エラーがないか検証。--noEmit でファイル出力は行いません。
+
+      # Next.js の本番ビルド
+      - run: npm run build
+        # next build コマンドを実行し、ビルドエラーや最適化結果をチェックします。
