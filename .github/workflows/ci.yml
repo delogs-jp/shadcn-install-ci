@@ -18,7 +18,7 @@ jobs:
         # package-lock.json と完全一致する形で node_modules を再生成します。
 
       # TypeScript 型チェック
-      - run: npm run tsc -- --noEmit
+      - run: npx tsc --noEmit
         # 型エラーがないか検証。--noEmit でファイル出力は行いません。
 
       # Next.js の本番ビルド
