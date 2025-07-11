@@ -17,10 +17,16 @@ jobs:
       - run: npm ci
         # package-lock.json と完全一致する形で node_modules を再生成します。
 
+      # ここで ESLint を実行
+      - name: Run ESLint
+        run: npm run lint
+
       # TypeScript 型チェック
-      - run: npx tsc --noEmit
+      - name: Run TypeScript Check
+        run: npx tsc --noEmit
         # 型エラーがないか検証。--noEmit でファイル出力は行いません。
 
       # Next.js の本番ビルド
-      - run: npm run build
+      - name: Build Next.js
+        run: npm run build
         # next build コマンドを実行し、ビルドエラーや最適化結果をチェックします。
